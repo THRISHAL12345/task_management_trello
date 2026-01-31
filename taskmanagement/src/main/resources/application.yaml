@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: taskmanagement-backend
+
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/taskmanager}
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:dummy@gmail.com}
+    password: ${MAIL_PASSWORD:dummy-password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+jwt:
+  secret: ${JWT_SECRET:my-super-secure-jwt-secret-key-which-is-at-least-32-chars}
+  expiration: 3600000
+
+file:
+  upload-dir: ${FILE_UPLOAD_DIR:uploads}
+
+logging:
+  level:
+    org.springframework.security: INFO
+    org.mongodb.driver: INFO

@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+
+  mongodb:
+    image: mongo:7
+    container_name: taskmanager-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: .
+    container_name: taskmanager-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/taskmanager
+      JWT_SECRET: my-super-secure-jwt-secret-key-which-is-at-least-32-chars
+      FILE_UPLOAD_DIR: /uploads
+    volumes:
+      - uploads:/uploads
+
+volumes:
+  mongo_data:
+  uploads:
